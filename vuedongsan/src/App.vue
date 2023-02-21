@@ -1,16 +1,93 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  안녕하세요
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="menu">
+    <!-- 반복적인 <a>가 등장할 때 반복문을 사용하고 싶지 않나요?
+      HTML 반복문 : <태그 v-for="작성 in 반복횟수"> (:key="작명"도 필요) 
+      Vue반복문 특징 : array / object 집어넣기 가능
+      - 1. 자료 안에 데이터 갯수만큼 반복
+      - 2. 작명한 변수는 데이터 안의 자료가 됨
+      - 3-1. 변수 작명 2개까지 가능하다
+      - 3-2. <a v-for="(a,i) in 메뉴들" :key="i"> {{ a }} </a>
+      - 3-3. 왼쪽변수 : array 내의 데이터
+      - 3-4. 오른쪽변수 : 1씩 증가하는 정수 
+    -->
+    <a v-for="작명 in 메뉴들" :key="작명">{{ 작명 }}</a>
+
+  </div>
+  <!-- 반복문 추가 예시
+    <div v-for="점포명 in products" :key="점포명">
+      <h4 class="red" :style="스타일">{{ products }}</h4>
+      <p>50만원</p>
+    </div>
+  -->
+  <!-- 또는 
+    <div v-for="(점포명,i) in 3" :key="i">
+      <h4 class="red" :style="스타일">{{ products[i] }}</h4>
+      <p>50만원</p>
+    </div>
+   -->
+  <div>
+    <h4>{{ products[0] }}</h4>
+    <p>50만원</p>
+  </div>
+  <div>
+    <h4>{{ products[1] }}</h4>
+    <p>50만원</p>
+  </div>
+  <div>
+    <h4>{{ products[2] }}</h4>
+    <p>50만원</p>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// ★★★ 실시간 미리보기
+// Terminal > New Terminal > npm run serve 입력
+
+
+
+// * 문법만 외우면 개발자가 아니다. 혼자서 코드를 못 짜기 때문이다
+// * 이 문법을 언제 쓰는지 배워야한다
+
+// ###### 데이터바인딩 ######
+// - JS데이터를 HTML에 꽂아넣는 문법
+// ↓↓↓ 기존 자바스크립트식 데이터바인딩
+// document.getElementById().innerHTML = ??
+// ↓↓↓ 뷰의 데이터바인딩
+// data() { return { '이곳에 데이터 넣기 '}}
+
+// 데이터바인딩하는 이유1
+//   HTML에 하드코딩해놓으면 나중에 변경이 어렵다.
+//   가변적인 데이터는 밑에 작성한다.
+// 데이터바인딩하는 이유2
+//    Vue의 실시간 자동 렌더링 쓰려면 해야한다.
+//    data를 변경하면 data와 관련된 HTML에도 실시간으로 반영된다.
+//    웹앱 같은거 만들 수 있다.
+
+// => 자주 변할 것 같은 데이터들은 데이터로 보관하고 HTML에 {{꽂아넣자}}
+//    스무스하게 페이지 데이터가 가변하므로 너무 좋다!
+
+// Q. 쇼핑몰 이름도 데이터바인딩 할까?
+// A. No. 애초에 바뀔 일이 없으면 안 해도 된다.
+
+
+// (충격) HTML 속성도 데이터바인딩 가능 !!
+// 속성 값을 데이터바인딩 할 때에는 콧수염{{}}이 아니라
+// 콜론(:)을 붙여준다! ex) :style="스타일"
+
 
 export default {
   name: 'App',
+  data(){
+    return{
+      // object형식으로 자료 저장 → {자료이름 : 자료내용}
+      price1 : 60,
+      // 한글로 작명 가능
+      스타일 : 'color : blue',
+      메뉴들 : ['Home', 'Shop', 'About'],
+      products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
+    }
+  },
   components: {
-    HelloWorld
   }
 }
 </script>
@@ -22,6 +99,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+.menu {
+  background: darkslateblue;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.menu a {
+  color: white;
+  padding: 10px;
+}
+
 </style>
