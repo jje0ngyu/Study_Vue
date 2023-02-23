@@ -5,7 +5,7 @@
       Vue반복문 특징 : array / object 집어넣기 가능
       - 1. 자료 안에 데이터 갯수만큼 반복
       - 2. 작명한 변수는 데이터 안의 자료가 됨
-      - 3-1. 변수 작명 2개까지 가능하다
+      - 3-1. 변수 작명 2개까지 가능
       - 3-2. <a v-for="(a,i) in 메뉴들" :key="i"> {{ a }} </a>
       - 3-3. 왼쪽변수 : array 내의 데이터
       - 3-4. 오른쪽변수 : 1씩 증가하는 정수 
@@ -24,18 +24,54 @@
       <h4 class="red" :style="스타일">{{ products[i] }}</h4>
       <p>50만원</p>
     </div>
-   -->
+  -->
+
+
+
+
+  <!--  
+    오늘 배울 내용
+    이벤트 핸들러 : HTML 클릭 시 코드실행하는 법
+
+    ↓↓↓ 기존 자바스크립트 클릭 이벤트
+     <button onClick="">
+    ↓↓↓ 뷰의 이벤트
+     <button v-on:click="">
+     <button @click="">  => 'v-on'의 약자가 '@'이다.
+    
+    다양한 이벤트 사용가능
+     @click
+     @mouseover
+     @input : 글자를 입력했을 때 자바스크립트 실행
+
+    Q. 입력할 코드가 좀 길면...
+    A. 함수명을 사용
+    ↓↓↓ 기존 자바스크립트 함수
+     function 어쩌구() {}
+    ↓↓↓ 뷰의 함수 
+    methods : { 함수(){ 내용어쩌구저쩌구 } }
+  -->
   <div>
+    <img src="./assets/room0.jpg" class="room-img">
+    <!-- ./  부터가 현재 위치 -->
     <h4>{{ products[0] }}</h4>
     <p>50만원</p>
+    <button @click="신고수[0]++">허위매물신고</button>
+    <span>신고수 : {{신고수[0]}}</span>
   </div>
   <div>
+    <img src="./assets/room1.jpg" class="room-img">
     <h4>{{ products[1] }}</h4>
     <p>50만원</p>
+    <button @click="신고수[1]++">허위매물신고</button>
+    <span>신고수 : {{신고수[1]}}</span>
   </div>
   <div>
+    <img src="./assets/room2.jpg" class="room-img">
     <h4>{{ products[2] }}</h4>
     <p>50만원</p>
+    <button @click="신고수[2]++">허위매물신고</button>
+    <span>신고수 : {{신고수[2]}}</span>
   </div>
 </template>
 
@@ -83,9 +119,17 @@ export default {
       price1 : 60,
       // 한글로 작명 가능
       스타일 : 'color : blue',
+      신고수 : [0, 0, 0],
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
     }
+  },
+  methods : {
+     increase(){
+      // Vue에서 함수 만들 때 주의사항
+      // - 함수 안에서 데이터 쓸 땐 this.데이터명
+      this.신고수 += 1;
+     }
   },
   components: {
   }
@@ -93,6 +137,11 @@ export default {
 </script>
 
 <style>
+.room-img {
+  width : 100%;
+  margin-top: 40px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
