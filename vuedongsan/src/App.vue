@@ -1,4 +1,13 @@
 <template>
+  <!-- 모달창 -->
+  <div class="black-bg" v-if="모달창열렸니 == true">
+    <div class="white-bg">
+      <h4>상세페이지임</h4>
+      <p>상세페이지 내용임</p>
+      <button @click="모달창열렸니 = false">닫기</button>
+    </div>
+  </div>
+
   <div class="menu">
     <!-- 반복적인 <a>가 등장할 때 반복문을 사용하고 싶지 않나요?
       HTML 반복문 : <태그 v-for="작성 in 반복횟수"> (:key="작명"도 필요) 
@@ -51,10 +60,14 @@
     ↓↓↓ 뷰의 함수 
     methods : { 함수(){ 내용어쩌구저쩌구 } }
   -->
+  
+
+
+
   <div>
     <img src="./assets/room0.jpg" class="room-img">
     <!-- ./  부터가 현재 위치 -->
-    <h4>{{ products[0] }}</h4>
+    <h4 @click="모달창열렸니 = true">{{ products[0] }}</h4>
     <p>50만원</p>
     <button @click="신고수[0]++">허위매물신고</button>
     <span>신고수 : {{신고수[0]}}</span>
@@ -111,6 +124,14 @@
 // 콜론(:)을 붙여준다! ex) :style="스타일"
 
 
+// 동적인 UI 만드는 법 :
+// 1. UI의 현재 상태를 데이터로 저장
+// 2. 데이터에 따라 UI가 어떻게 보일지 작성
+
+
+import apple from './assets/oneroom.js';
+apple;
+
 export default {
   name: 'App',
   data(){
@@ -119,6 +140,7 @@ export default {
       price1 : 60,
       // 한글로 작명 가능
       스타일 : 'color : blue',
+      모달창열렸니 : false, // 1 or 0 , true or false
       신고수 : [0, 0, 0],
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
@@ -137,6 +159,22 @@ export default {
 </script>
 
 <style>
+body {
+  margin : 0
+}
+div {
+  box-sizing: border-box;
+}
+.black-bg {
+  width : 100%; height : 100%;
+  background : rgba(0,0,0,0.5);
+  position : fixed; padding: 20px;
+}
+.white-bg {
+  width: 100%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
 .room-img {
   width : 100%;
   margin-top: 40px;
