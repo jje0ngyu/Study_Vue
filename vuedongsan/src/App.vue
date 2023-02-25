@@ -1,12 +1,31 @@
 <template>
   <!-- 모달창 -->
   <div class="black-bg" v-if="모달창열렸니 == true">
+    <!-- if문 연달아 쓰고 싶을 때 : v-if="" / v-else-if="" / v-else -->
     <div class="white-bg">
-      <h4>상세페이지임</h4>
-      <p>상세페이지 내용임</p>
+      <h4>{{ 원룸들[누른거].title }}</h4>
+      <img :src="원룸들[누른거].image" style="width:100%">
+      <p>{{원룸들[누른거].content}}</p>
+      <Discount2/>
       <button @click="모달창열렸니 = false">닫기</button>
     </div>
   </div>
+    
+  <!-- Coponent
+   긴 HTML을 한 단어로 예쁘게 축약한 것
+    생성 방법
+      1. vue 파일 생성
+      2. 생성한 파일에 Vue파일 기본 구조 작성 (<template>, <script>, <style>)
+      3. 생성한 파일에 HTML 작성
+    컴포넌트 쓰는 방법
+      1. Vue파일 import 해오고
+      2. 등록하고
+      3. 사용하기
+    컴포넌트 사용 이유?
+      - 보기 예뻐서
+      - 재사용이 쉬움 => 반복적으로 출현할 부분만 컴포넌트로 작성
+  -->
+
 
   <div class="menu">
     <!-- 반복적인 <a>가 등장할 때 반복문을 사용하고 싶지 않나요?
@@ -38,6 +57,8 @@
 
 
 
+
+
   <!--  
     오늘 배울 내용
     이벤트 핸들러 : HTML 클릭 시 코드실행하는 법
@@ -63,28 +84,24 @@
   
 
 
-
   <div>
-    <img src="./assets/room0.jpg" class="room-img">
+    <img src="./assets/room1.jpg" class="room-img">
     <!-- ./  부터가 현재 위치 -->
-    <h4 @click="모달창열렸니 = true">{{ products[0] }}</h4>
+    <h4>{{ products[0] }}</h4>
     <p>50만원</p>
     <button @click="신고수[0]++">허위매물신고</button>
     <span>신고수 : {{신고수[0]}}</span>
   </div>
-  <div>
-    <img src="./assets/room1.jpg" class="room-img">
-    <h4>{{ products[1] }}</h4>
-    <p>50만원</p>
-    <button @click="신고수[1]++">허위매물신고</button>
-    <span>신고수 : {{신고수[1]}}</span>
-  </div>
-  <div>
-    <img src="./assets/room2.jpg" class="room-img">
-    <h4>{{ products[2] }}</h4>
-    <p>50만원</p>
-    <button @click="신고수[2]++">허위매물신고</button>
-    <span>신고수 : {{신고수[2]}}</span>
+  <!--
+   HTML 태그 안에 속성 데이터바인딩은 :어쩌구
+   HTML 태그 안의 내용 데이터바인딩은 {{어쩌구}}
+  -->
+
+  <!-- 반복문 -->
+  <div v-for="(작명,i) in 원룸들" :key="i">
+    <img :src="원룸들[i].image" class="room-img">
+    <h4 @click="모달창열렸니 = true; 누른거 = i" >{{원룸들[i].title}}</h4>
+    <p>{{원룸들[i].price}}원</p>
   </div>
 </template>
 
@@ -129,8 +146,8 @@
 // 2. 데이터에 따라 UI가 어떻게 보일지 작성
 
 
-import apple from './assets/oneroom.js';
-apple;
+import data from './assets/oneroom.js';
+import Discount from './Discount2.vue';
 
 export default {
   name: 'App',
@@ -140,6 +157,8 @@ export default {
       price1 : 60,
       // 한글로 작명 가능
       스타일 : 'color : blue',
+      누른거 : 0, // 초깃값 : 0
+      원룸들 : data,
       모달창열렸니 : false, // 1 or 0 , true or false
       신고수 : [0, 0, 0],
       메뉴들 : ['Home', 'Shop', 'About'],
@@ -154,6 +173,8 @@ export default {
      }
   },
   components: {
+    // Key : Value 형태
+    Discount2 : Discount,
   }
 }
 </script>
@@ -164,6 +185,12 @@ body {
 }
 div {
   box-sizing: border-box;
+}
+.discount {
+  background: #eee;
+  padding:10px;
+  margin: 10px;
+  border-radius: 5px;
 }
 .black-bg {
   width : 100%; height : 100%;
