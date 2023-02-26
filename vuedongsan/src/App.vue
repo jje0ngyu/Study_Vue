@@ -1,32 +1,7 @@
 <template>
-  <!-- 모달창 -->
-  <div class="black-bg" v-if="모달창열렸니 == true">
-    <!-- if문 연달아 쓰고 싶을 때 : v-if="" / v-else-if="" / v-else -->
-    <div class="white-bg">
-      <h4>{{ 원룸들[누른거].title }}</h4>
-      <img :src="원룸들[누른거].image" style="width:100%">
-      <p>{{원룸들[누른거].content}}</p>
-      <Discount2/>
-      <button @click="모달창열렸니 = false">닫기</button>
-    </div>
-  </div>
-    
-  <!-- Coponent
-   긴 HTML을 한 단어로 예쁘게 축약한 것
-    생성 방법
-      1. vue 파일 생성
-      2. 생성한 파일에 Vue파일 기본 구조 작성 (<template>, <script>, <style>)
-      3. 생성한 파일에 HTML 작성
-    컴포넌트 쓰는 방법
-      1. Vue파일 import 해오고
-      2. 등록하고
-      3. 사용하기
-    컴포넌트 사용 이유?
-      - 보기 예뻐서
-      - 재사용이 쉬움 => 반복적으로 출현할 부분만 컴포넌트로 작성
-  -->
-
-
+  <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
+  <Discount/> 
+  
   <div class="menu">
     <!-- 반복적인 <a>가 등장할 때 반복문을 사용하고 싶지 않나요?
       HTML 반복문 : <태그 v-for="작성 in 반복횟수"> (:key="작명"도 필요) 
@@ -98,11 +73,8 @@
   -->
 
   <!-- 반복문 -->
-  <div v-for="(작명,i) in 원룸들" :key="i">
-    <img :src="원룸들[i].image" class="room-img">
-    <h4 @click="모달창열렸니 = true; 누른거 = i" >{{원룸들[i].title}}</h4>
-    <p>{{원룸들[i].price}}원</p>
-  </div>
+  <Card v-for="(작명,i) in 원룸들" :key="작명" :원룸들="원룸들[i]" :누른거="누른거"/>
+
 </template>
 
 <script>
@@ -147,7 +119,9 @@
 
 
 import data from './assets/oneroom.js';
-import Discount from './Discount2.vue';
+import Discount from './Discount.vue';
+import Modal from './Modal.vue';
+import Card from './Card.vue';
 
 export default {
   name: 'App',
@@ -174,7 +148,10 @@ export default {
   },
   components: {
     // Key : Value 형태
-    Discount2 : Discount,
+    // Value = import한 이름
+    Discount : Discount,
+    Modal : Modal,
+    Card : Card,
   }
 }
 </script>
