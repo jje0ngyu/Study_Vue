@@ -1,8 +1,14 @@
 <template>
-  <Modal @closeModal="모달창열렸니 = false"
-   :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
-  <Discount/> 
-  
+
+  <!-- 애니메이션
+
+  -->
+  <div class="start">
+    <Modal @closeModal="모달창열렸니 = false"
+    :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
+    <Discount/> 
+  </div>
+
   <div class="menu">
     <!-- 반복적인 <a>가 등장할 때 반복문을 사용하고 싶지 않나요?
       HTML 반복문 : <태그 v-for="작성 in 반복횟수"> (:key="작명"도 필요) 

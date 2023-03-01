@@ -40,7 +40,22 @@ export default {
 
     // 데이터를 감시하려면? watch!
     watch : {
-
+        // 함수 식으로 관리
+        // 데이터명으로...
+        // "month"라는 데이터가 변할 때마다 실행
+        month(a){
+            // 파라미터는 2개까지 작성 가능하며 ex) month(a,b)
+            // a,b = month 데이터  (*a: 변경 후 / b: 변경 전)
+            // 일반적으로 변경 후 데이터가 중요하므로 a를 기준으로 watch 실행
+            // 사용자가 month에 입력한 데이터가 13보다 크면 경고문 띄우기
+            if (isNaN(a) == true){
+                alert('문자는 입력하지 마세요');
+                this.month = 1;                
+            }
+        }
+        // 유효성 검사를 직접 치기 귀찮다면, Vue전용 라이브러리
+        // form validation 을 설치 !!
+        // 그럼 watcher 안 써도 됨
     },
     props: {
         // 자식은 props로 받은 거 등록
